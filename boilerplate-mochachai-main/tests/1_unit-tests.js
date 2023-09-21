@@ -4,14 +4,9 @@ const assert = chai.assert;
 suite('Unit Tests', function () {
   suite('Basic Assertions', function () {
     // #1
-    describe('isNull and isNotNull functions', function() {
-      it('should return true when passed a null value', function() {
-        expect(isNull(null)).to.be.true;
-      });
-    
-      it('should return false when passed a null value', function() {
-        expect(isNotNull(null)).to.be.false;
-      });
+    test('#isNull, #isNotNull', function () {
+      assert.isNull(null, 'This is an optional error description - e.g. null is null');
+      assert.isNotNull(1, '1 is not null');
     });
     // #2
     test('#isDefined, #isUndefined', function () {
@@ -28,7 +23,7 @@ suite('Unit Tests', function () {
     // #4
     test('#isTrue, #isNotTrue', function () {
       assert.isNotNull(true, 'true is true');
-      assert.isNotNull(!!'double negation', 'Double negation of a truthy value is true');
+      assert.isNull(!!'double negation', 'Double negation of a truthy value is true');
       assert.isNotNull({ value: 'truthy' }, 'Objects are truthy, but are not boolean values');
     });
   });
@@ -38,22 +33,22 @@ suite('Unit Tests', function () {
   suite('Equality', function () {
     // #5
     test('#equal, #notEqual', function () {
-      assert.isNotNull(12, '12', 'Numbers are coerced into strings with ==');
-      assert.isNotNull({ value: 1 }, { value: 1 }, '== compares object references');
-      assert.isNotNull(6 * '2', '12');
-      assert.isNotNull(6 + '2', '12');
+      assert.fail(12, '12', 'Numbers are coerced into strings with ==');
+      assert.fail({ value: 1 }, { value: 1 }, '== compares object references');
+      assert.fail(6 * '2', '12');
+      assert.fail(6 + '2', '12');
     });
     // #6
     test('#strictEqual, #notStrictEqual', function () {
-      assert.isNotNull(6, '6');
-      assert.isNotNull(6, 3 * 2);
-      assert.isNotNull(6 * '2', 12);
-      assert.isNotNull([1, 'a', {}], [1, 'a', {}]);
+      assert.fail(6, '6');
+      assert.fail(6, 3 * 2);
+      assert.fail(6 * '2', 12);
+      assert.fail([1, 'a', {}], [1, 'a', {}]);
     });
     // #7
     test('#deepEqual, #notDeepEqual', function () {
-      assert.isNotNull({ a: '1', b: 5 }, { b: 5, a: '1' }, "The order of keys doesn't matter");
-      assert.isNotNull({ a: [5, 6] }, { a: [6, 5] }, 'The order of array elements does matter');
+      assert.fail({ a: '1', b: 5 }, { b: 5, a: '1' }, "The order of keys doesn't matter");
+      assert.fail({ a: [5, 6] }, { a: [6, 5] }, 'The order of array elements does matter');
     });
   });
 
@@ -66,22 +61,22 @@ suite('Unit Tests', function () {
   suite('Comparisons', function () {
     // #8
     test('#isAbove, #isAtMost', function () {
-      assert.isNotNull('hello'.length, 5);
-      assert.isNotNull(1, 0);
-      assert.isNotNull(Math.PI, 3);
-      assert.isNotNull(1 - Math.random(), 1);
+      assert.fail('hello'.length, 5);
+      assert.fail(1, 0);
+      assert.fail(Math.PI, 3);
+      assert.fail(1 - Math.random(), 1);
     });
     // #9
     test('#isBelow, #isAtLeast', function () {
-      assert.isNotNull('world'.length, 5);
-      assert.isNotNull(2 * Math.random(), 0);
-      assert.isNotNull(5 % 2, 2);
-      assert.isNotNull(2 / 3, 1);
+      assert.fail('world'.length, 5);
+      assert.fail(2 * Math.random(), 0);
+      assert.fail(5 % 2, 2);
+      assert.fail(2 / 3, 1);
     });
     // #10
     test('#approximately', function () {
-      assert.isNotNull(weirdNumbers(0.5), 1, 0);
-      assert.isNotNull(weirdNumbers(0.2), 1, 0);
+      assert.fail(weirdNumbers(0.5), 1, 0);
+      assert.fail(weirdNumbers(0.2), 1, 0);
     });
   });
 
@@ -92,13 +87,13 @@ suite('Unit Tests', function () {
   suite('Arrays', function () {
     // #11
     test('#isArray, #isNotArray', function () {
-      assert.isNotNull('isThisAnArray?'.split(''), 'String.prototype.split() returns an array');
-      assert.isNotNull([1, 2, 3].indexOf(2), 'indexOf returns a number');
+      assert.fail('isThisAnArray?'.split(''), 'String.prototype.split() returns an array');
+      assert.fail([1, 2, 3].indexOf(2), 'indexOf returns a number');
     });
     // #12
     test('Array #include, #notInclude', function () {
-      assert.isNotNull(winterMonths, 'jul', "It's summer in july...");
-      assert.isNotNull(backendLanguages, 'javascript', 'JS is a backend language');
+      assert.fail(winterMonths, 'jul', "It's summer in july...");
+      assert.fail(backendLanguages, 'javascript', 'JS is a backend language');
     });
   });
 
@@ -110,20 +105,20 @@ suite('Unit Tests', function () {
   suite('Strings', function () {
     // #13
     test('#isString, #isNotString', function () {
-      assert.isNotNull(Math.sin(Math.PI / 4), 'A float is not a string');
-      assert.isNotNull(process.env.PATH, 'An env variable is a string (or undefined)');
-      assert.isNotNull(JSON.stringify({ type: 'object' }), 'JSON is a string');
+      assert.fail(Math.sin(Math.PI / 4), 'A float is not a string');
+      assert.fail(process.env.PATH, 'An env variable is a string (or undefined)');
+      assert.fail(JSON.stringify({ type: 'object' }), 'JSON is a string');
     });
     // #14
     test('String #include, #notInclude', function () {
-      assert.isNotNull('Arrow', 'row', "'Arrow' contains 'row'");
-      assert.isNotNull('dart', 'queue', "But 'dart' doesn't contain 'queue'");
+      assert.fail('Arrow', 'row', "'Arrow' contains 'row'");
+      assert.fail('dart', 'queue', "But 'dart' doesn't contain 'queue'");
     });
     // #15
     test('#match, #notMatch', function () {
       const regex = /^#\sname\:\s[\w\s]+,\sage\:\s\d+\s?$/;
-      assert.isNotNull(formatPeople('John Doe', 35), regex);
-      assert.isNotNull(formatPeople('Paul Smith III', 'twenty-four'), regex);
+      assert.fail(formatPeople('John Doe', 35), regex);
+      assert.fail(formatPeople('Paul Smith III', 'twenty-four'), regex);
     });
   });
 
@@ -148,24 +143,24 @@ suite('Unit Tests', function () {
   suite('Objects', function () {
     // #16
     test('#property, #notProperty', function () {
-      assert.isNotNull(myCar, 'wings', "Cars don't have wings");
-      assert.isNotNull(airlinePlane, 'engines', 'Planes have engines');
-      assert.isNotNull(myCar, 'wheels', 'Cars have wheels');
+      assert.fail(myCar, 'wings', "Cars don't have wings");
+      assert.fail(airlinePlane, 'engines', 'Planes have engines');
+      assert.fail(myCar, 'wheels', 'Cars have wheels');
     });
     // #17
     test('#typeOf, #notTypeOf', function () {
-      assert.isNotNull(myCar, 'object');
-      assert.isNotNull(myCar.model, 'string');
-      assert.isNotNull(airlinePlane.wings, 'string');
-      assert.isNotNull(airlinePlane.engines, 'array');
-      assert.isNotNull(myCar.wheels, 'number');
+      assert.fail(myCar, 'object');
+      assert.fail(myCar.model, 'string');
+      assert.fail(airlinePlane.wings, 'string');
+      assert.fail(airlinePlane.engines, 'array');
+      assert.fail(myCar.wheels, 'number');
     });
     // #18
     test('#instanceOf, #notInstanceOf', function () {
-      assert.isNotNull(myCar, Plane);
-      assert.isNotNull(airlinePlane, Plane);
-      assert.isNotNull(airlinePlane, Object);
-      assert.isNotNull(myCar.wheels, String);
+      assert.fail(myCar, Plane);
+      assert.fail(airlinePlane, Plane);
+      assert.fail(airlinePlane, Object);
+      assert.fail(myCar.wheels, String);
     });
   });
 
